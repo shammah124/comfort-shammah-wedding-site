@@ -1,0 +1,8 @@
+<% content_for :head do %>
+  <script>
+    window.__WEDDING_SITE__ = <%= raw json_escape(@site_settings.frontend_payload.to_json) %>;
+    window.__WEDDING_SITE__.logo_url = "<%= image_path('My Wedding Logo.png') %>";
+  </script>
+<% end %>
+
+<div id="root"></div>

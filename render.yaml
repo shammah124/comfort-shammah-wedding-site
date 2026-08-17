@@ -1,0 +1,51 @@
+# Render Blueprint — one-click deploy of the Tamani & Oise wedding invitation.
+#
+# Usage:
+#   1. Push this repo to GitHub.
+#   2. In the Render dashboard: New → Blueprint → connect this repo.
+#   3. When prompted, paste your RAILS_MASTER_KEY (the contents of
+#      config/master.key — it is gitignored, so Render won't have it yet).
+#   4. Click Apply. First deploy takes ~5–10 min while the Docker image builds.
+#
+# Notes on the free plan:
+#   - 512 MB RAM, 0.1 CPU, spins down after 15 min of inactivity (~30 s cold start).
+#   - No persistent disk on free tier — SQLite resets on every deploy/restart.
+#     That is fine here because the public invitation does not collect data
+#     (the RSVP UI was removed). If you re-enable RSVPs, upgrade to a paid
+#     instance + add a `disks:` block, or switch to Render's managed Postgres.
+#   - To eliminate the cold start, point a free UptimeRobot HTTP monitor at the
+#     deployed URL on a 10-minute interval.
+
+services:
+  - type: web
+    name: wedding-invite
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      # Required — paste the contents of config/master.key in the dashboard.
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+      # Rails production settings.
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+
+      # Don't run Solid Queue — this invite enqueues no background jobs,
+      # and its default 5 worker threads exhaust the free tier's tiny DB
+      # connection pool, causing the in-Puma runner to die and crash Puma.
+      - key: SOLID_QUEUE_IN_PUMA
+        value: "false"
+
+      # Keep Puma's footprint small for the 512 MB free tier.
+      - key: WEB_CONCURRENCY
+        value: "0"
+      - key: RAILS_MAX_THREADS
+        value: "3"

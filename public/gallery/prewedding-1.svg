@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#130d0a"/>
+      <stop offset="50%" stop-color="#6b0020"/>
+      <stop offset="100%" stop-color="#a8872a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="52%" cy="35%" r="58%">
+      <stop offset="0%" stop-color="#f7f1e8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#f7f1e8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1067" fill="url(#bg)"/>
+  <circle cx="780" cy="320" r="400" fill="url(#glow)"/>
+  <circle cx="1210" cy="750" r="220" fill="#f7f1e8" opacity="0.08"/>
+  <path d="M0 790 C280 670, 480 1000, 840 920 C1100 865, 1240 620, 1600 760 L1600 1067 L0 1067 Z" fill="#120d0a" opacity="0.3"/>
+  <text x="108" y="176" fill="#fdf8f0" font-family="Georgia, serif" font-size="58" letter-spacing="8">C&AMP;Sh</text>
+  <text x="108" y="252" fill="#f7f1e8" font-family="Arial, sans-serif" font-size="26" letter-spacing="6" opacity="0.82">PRE-WEDDING ONE</text>
+  <text x="108" y="900" fill="#f7f1e8" font-family="Arial, sans-serif" font-size="28" letter-spacing="4" opacity="0.9">Warm planning session</text>
+</svg>

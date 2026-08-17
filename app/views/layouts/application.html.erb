@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CoSh2026</title>
+    <meta name="description" content="CoSh2026 wedding experience in Jos, Nigeria on October 17, 2026.">
+    <meta property="og:title" content="CoSh2026">
+    <meta property="og:description" content="CoSh2026 wedding experience in Jos, Nigeria on October 17, 2026.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CoSh2026">
+    <meta name="twitter:description" content="CoSh2026 wedding experience in Jos, Nigeria on October 17, 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%= tag.link rel: "manifest", href: pwa_manifest_path %>
+    <meta name="theme-color" content="#1a1410">
+
+    <link rel="icon" href="<%= image_path('my-wedding-logo-favicon.png') %>?v=2" type="image/png">
+    <link rel="apple-touch-icon" href="<%= image_path('my-wedding-logo-favicon.png') %>?v=2">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>
