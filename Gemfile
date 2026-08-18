@@ -6,7 +6,7 @@ gem "rails", "~> 8.0.2"
 gem "propshaft"
 # Use PostgreSQL in production and SQLite for local development.
 gem "pg", ">= 1.5", group: :production
-gem "sqlite3", ">= 2.1", group: %i[development test]
+gem "sqlite3", ">= 2.1"
 gem "aws-sdk-s3", require: false
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
