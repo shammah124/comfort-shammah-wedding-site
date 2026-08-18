@@ -15,13 +15,33 @@ class DownloadsController < ApplicationController
     download_programme(:reception)
   end
 
+  def media
+    source = params[:src].to_s
+    filename = safe_filename(params[:filename].presence || File.basename(URI.parse(source).path))
+
+    if source.start_with?("/uploads/", "/gallery/")
+      path = Rails.public_path.join(source.delete_prefix("/"))
+      return head :not_found unless File.file?(path)
+
+      send_file path, disposition: "attachment", filename: filename
+    elsif ObjectStorage.manages?(source)
+      send_data ObjectStorage.download(source), disposition: "attachment", filename: filename
+    else
+      head :bad_request
+    end
+  rescue URI::InvalidURIError
+    head :bad_request
+  rescue Aws::S3::Errors::NoSuchKey
+    head :not_found
+  end
+
   private
 
   def show_programme(programme)
     if (path = uploaded_programme_path(programme))
       send_file path, type: "application/pdf", disposition: "inline"
     elsif (url = external_programme_url(programme))
-      redirect_to url, allow_other_host: true
+      stream_external_programme(url, programme, disposition: "inline")
     else
       send_data programme_pdf(programme_title(programme), programme_lines(programme)),
         filename: programme_filename(programme),
@@ -34,7 +54,7 @@ class DownloadsController < ApplicationController
     if (path = uploaded_programme_path(programme))
       send_file path, type: "application/pdf", disposition: "attachment", filename: programme_filename(programme)
     elsif (url = external_programme_url(programme))
-      redirect_to url, allow_other_host: true
+      stream_external_programme(url, programme, disposition: "attachment")
     else
       send_data programme_pdf(programme_title(programme), programme_lines(programme)),
         filename: programme_filename(programme),
@@ -66,6 +86,18 @@ class DownloadsController < ApplicationController
   def external_programme_url(programme)
     source = programme_source(programme)
     source if source.match?(%r{\Ahttps?://}i)
+  end
+
+  def stream_external_programme(url, programme, disposition:)
+    if ObjectStorage.manages?(url)
+      send_data ObjectStorage.download(url), filename: programme_filename(programme), type: "application/pdf", disposition: disposition
+    else
+      redirect_to url, allow_other_host: true
+    end
+  end
+
+  def safe_filename(filename)
+    File.basename(filename.to_s).gsub(/[^A-Za-z0-9._-]/, "_").presence || "download"
   end
 
   def programme_source(programme)

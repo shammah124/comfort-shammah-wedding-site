@@ -1,4 +1,5 @@
 require "aws-sdk-s3"
+require "stringio"
 
 class ObjectStorage
   CACHE_CONTROL = "public, max-age=31536000, immutable".freeze
@@ -24,9 +25,20 @@ class ObjectStorage
     end
 
     def delete(url)
-      return unless configured? && url.start_with?(public_base_url)
+      return unless manages?(url)
 
       client.delete_object(bucket: ENV.fetch("R2_BUCKET"), key: url.delete_prefix("#{public_base_url}/"))
+    end
+
+    def download(url)
+      raise "This file is not stored in Cloudflare R2." unless manages?(url)
+
+      response = client.get_object(bucket: ENV.fetch("R2_BUCKET"), key: url.delete_prefix("#{public_base_url}/"))
+      response.body.read
+    end
+
+    def manages?(url)
+      configured? && url.to_s.start_with?(public_base_url)
     end
 
     private

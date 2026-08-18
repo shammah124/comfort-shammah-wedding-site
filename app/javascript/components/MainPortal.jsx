@@ -155,7 +155,7 @@ function MediaLightbox({ media, type, onClose }) {
         )}
         <div className="gallery-lightbox__footer">
           <div><p>{type === "video" ? "Video moment" : "Photo moment"}</p><h2>{title}</h2></div>
-          <button type="button" className="gallery-action gallery-action--solid" onClick={() => { if (!media.src) return; const anchor = document.createElement("a"); anchor.href = media.src; anchor.download = downloadName || ""; document.body.appendChild(anchor); anchor.click(); document.body.removeChild(anchor); }}>Download</button>
+          <button type="button" className="gallery-action gallery-action--solid" onClick={() => { if (!media.src) return; const query = new URLSearchParams({ src: media.src, filename: downloadName || "download" }); window.location.assign(`/downloads/media?${query.toString()}`); }}>Download</button>
         </div>
       </motion.div>
     </motion.div>

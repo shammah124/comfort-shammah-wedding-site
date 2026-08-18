@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "programmes/reception", to: "downloads#reception_programme_view", as: :reception_programme_view
   get "downloads/church-programme", to: "downloads#church_programme"
   get "downloads/reception-programme", to: "downloads#reception_programme"
+  get "downloads/media", to: "downloads#media"
   get "manifest.json", to: "pwa#manifest", as: :pwa_manifest, defaults: { format: :json }
   get "service-worker.js", to: "pwa#service_worker", as: :service_worker, defaults: { format: :js }
 

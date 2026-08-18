@@ -88,4 +88,5 @@ Notes:
 - Organized the supplied wedding media into permanent programme-source, public gallery, video, programme, and Planning Team locations; linked the new pre-wedding gallery and video records, then removed the verified empty source folder.
 - Updated the live invitation portal with one-click envelope opening, the revised reception and departure schedule, the corrected Comfort and Shammah love-story milestones, and complete removal of the invitation gallery section.
 - Prepared production deployment: strengthened ignored local files, added PostgreSQL production configuration, added Cloudflare R2-backed admin media uploads with local fallback, and documented the GitHub-to-hosting launch process.
+- Routed public programme, gallery image, and video downloads through attachment responses so downloads stay direct on mobile and desktop, including Cloudflare R2 media.
 - Prevented GitHub deployment uploads from including the nested standalone invitation copy, local bundled dependencies, editor metadata, or Mac metadata while retaining the safe `.env.example` deployment template.
