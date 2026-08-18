@@ -55,6 +55,9 @@ RUN yarn install --frozen-lockfile
 # Copy application code
 COPY . .
 
+# Windows checkouts do not preserve executable bits required by Rails entry scripts.
+RUN chmod +x bin/rails bin/docker-entrypoint bin/thrust
+
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
