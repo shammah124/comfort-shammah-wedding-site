@@ -12,8 +12,9 @@ if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
 fi
 
 # If thruster (via bin/thrust) is the entry command, inject PORT env var
-if [ "$1" == "./bin/thrust" ] && [ -n "${PORT}" ]; then
-  set -- "$1" -p "${PORT}" "${@:2}"
+if [ "${1}" = "./bin/thrust" ] && [ -n "${PORT}" ]; then
+  shift
+  exec ./bin/thrust -p "${PORT}" "$@"
 fi
 
 exec "${@}"
