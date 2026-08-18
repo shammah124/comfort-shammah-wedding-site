@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import MusicToggle from "./MusicToggle";
 
@@ -275,7 +275,30 @@ function PortalIcon({ name }) {
 function ProgrammePrompt({ item, onClose }) {
   if (!item) return null;
 
+  const [downloading, setDownloading] = useState(false);
   const programmeName = item.label.replace(" Programme", "");
+
+  const handleDownload = async () => {
+    if (!item.downloadHref || downloading) return;
+    setDownloading(true);
+    try {
+      const response = await fetch(item.downloadHref);
+      if (!response.ok) throw new Error("Download failed");
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "";
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (err) {
+      window.open(item.downloadHref, "_blank", "noopener,noreferrer");
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <motion.div
@@ -315,13 +338,14 @@ function ProgrammePrompt({ item, onClose }) {
           >
             Open PDF
           </button>
-          <a
-            href={item.downloadHref}
-            download=""
-            style={{ padding: "11px 15px", border: "1px solid rgba(107,0,32,0.20)", borderRadius: 11, color: "#6b0020", fontWeight: 700, textDecoration: "none" }}
+          <button
+            type="button"
+            onClick={handleDownload}
+            disabled={downloading}
+            style={{ padding: "11px 15px", border: "1px solid rgba(107,0,32,0.20)", borderRadius: 11, color: "#6b0020", fontWeight: 700, cursor: downloading ? "wait" : "pointer", background: "transparent", opacity: downloading ? 0.7 : 1 }}
           >
-            Download PDF
-          </a>
+            {downloading ? "Downloading…" : "Download PDF"}
+          </button>
           <button type="button" onClick={onClose} style={{ padding: "11px 8px", border: "none", background: "transparent", color: "#77635a", fontWeight: 700, cursor: "pointer" }}>Cancel</button>
         </div>
       </motion.section>
