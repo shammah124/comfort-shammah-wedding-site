@@ -155,7 +155,7 @@ function MediaLightbox({ media, type, onClose }) {
         )}
         <div className="gallery-lightbox__footer">
           <div><p>{type === "video" ? "Video moment" : "Photo moment"}</p><h2>{title}</h2></div>
-          <a className="gallery-action gallery-action--solid" href={media.src} download={downloadName}>Download</a>
+          <button type="button" className="gallery-action gallery-action--solid" onClick={() => { if (!media.src) return; const anchor = document.createElement("a"); anchor.href = media.src; anchor.download = downloadName || ""; document.body.appendChild(anchor); anchor.click(); document.body.removeChild(anchor); }}>Download</button>
         </div>
       </motion.div>
     </motion.div>
@@ -302,7 +302,7 @@ function ProgrammePrompt({ item, onClose }) {
         <p style={{ margin: "18px 0 0", color: "#7d5a26", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" }}>Programme PDF</p>
         <h2 id="programme-prompt-title" style={{ margin: "7px 0 0", fontFamily: "var(--font-serif)", fontSize: "1.9rem", lineHeight: 1.05, color: "#5c1128" }}>{item.label}</h2>
         <p style={{ margin: "14px 0 0", lineHeight: 1.65, color: "#6f5a51" }}>
-          Open the {programmeName.toLowerCase()} programme in a new tab. Your browser will show the PDF and its normal download control.
+          Open the {programmeName.toLowerCase()} programme in a new tab, or download it directly to your device.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }}>
           <button
@@ -317,6 +317,7 @@ function ProgrammePrompt({ item, onClose }) {
           </button>
           <a
             href={item.downloadHref}
+            download=""
             style={{ padding: "11px 15px", border: "1px solid rgba(107,0,32,0.20)", borderRadius: 11, color: "#6b0020", fontWeight: 700, textDecoration: "none" }}
           >
             Download PDF
