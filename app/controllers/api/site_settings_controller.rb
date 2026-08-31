@@ -3,8 +3,9 @@ require "fileutils"
 module Api
   class SiteSettingsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :require_admin!, only: [:update]
-    before_action :require_admin!, only: [:media_upload, :media_delete, :programme_upload, :programme_delete]
+    before_action -> { require_admin_permission!("site_settings") }, only: [:update]
+    before_action -> { require_admin_permission!("galleries") }, only: [:media_upload, :media_delete]
+    before_action -> { require_admin_permission!("programmes") }, only: [:programme_upload, :programme_delete]
 
     def show
       render json: { site_settings: SiteSetting.current.frontend_payload }
@@ -210,8 +211,5 @@ module Api
       File.delete(full_path) if File.exist?(full_path)
     end
 
-    def require_admin!
-      head :unauthorized unless session[:admin_signed_in] == true
-    end
   end
 end

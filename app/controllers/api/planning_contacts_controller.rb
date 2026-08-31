@@ -7,7 +7,7 @@ module Api
 
     skip_before_action :verify_authenticity_token
     before_action :refresh_photo_column_cache
-    before_action :require_admin!, only: [:create, :update, :destroy]
+    before_action -> { require_admin_permission!("planning_team") }, only: [:create, :update, :destroy]
 
     def index
       render json: { planning_contacts: PlanningContact.ordered }
@@ -109,8 +109,5 @@ module Api
       File.delete(full_path) if File.exist?(full_path)
     end
 
-    def require_admin!
-      head :unauthorized unless session[:admin_signed_in] == true
-    end
   end
 end

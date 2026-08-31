@@ -87,6 +87,16 @@ const launcherItems = [
     points: ["Timeline-style updates", "Ceremony and reception notes", "Admin-managed posts", "No livestream required"],
   },
   {
+    key: "goodwill",
+    label: "Goodwill Messages",
+    kind: "window",
+    icon: "message-heart",
+    accent: "#c59aa4",
+    href: "/?portal=main&feature=goodwill",
+    title: "Goodwill Messages",
+    description: "Share a warm wish with Comfort and Shammah and read messages from their loved ones.",
+  },
+  {
     key: "gifts",
     label: "Support / Gifts",
     kind: "window",
@@ -259,6 +269,10 @@ function PortalIcon({ name }) {
 
   if (name === "sparkles") {
     return <svg {...iconProps}><path d="m12 3-1.3 5.7L5 10l5.7 1.3L12 17l1.3-5.7L19 10l-5.7-1.3zM19 15l-.6 2.4L16 18l2.4.6L19 21l.6-2.4L22 18l-2.4-.6zM5 3l-.6 2.4L2 6l2.4.6L5 9l.6-2.4L8 6l-2.4-.6z" /></svg>;
+  }
+
+  if (name === "message-heart") {
+    return <svg {...iconProps}><path d="M21 12a8 8 0 0 1-8 8H6l-4 3v-7.5A8 8 0 1 1 21 12Z" /><path d="M12 15.2 8.9 12.3a2 2 0 0 1 2.8-2.9l.3.3.3-.3a2 2 0 0 1 2.8 2.9Z" /></svg>;
   }
 
   if (name === "gift") {
@@ -744,8 +758,110 @@ function PlanningContacts({ contacts = [] }) {
   );
 }
 
+const GOODWILL_PAGE_SIZE = 15;
+
+function GoodwillMessages() {
+  const [messages, setMessages] = useState([]);
+  const [form, setForm] = useState({ name: "", message: "" });
+  const [visibleCount, setVisibleCount] = useState(GOODWILL_PAGE_SIZE);
+  const [expandedId, setExpandedId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch("/api/goodwill_messages")
+      .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+      .then(({ ok, data }) => {
+        if (!active) return;
+        if (!ok) throw new Error("Goodwill messages could not be loaded right now.");
+        setMessages(data.goodwill_messages || []);
+      })
+      .catch((error) => {
+        if (!active) return;
+        setHasError(true);
+        setFeedback(error.message);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
+    if (!feedback || hasError) return undefined;
+
+    const timer = window.setTimeout(() => setFeedback(""), 2_000);
+    return () => window.clearTimeout(timer);
+  }, [feedback, hasError]);
+
+  async function submitMessage(event) {
+    event.preventDefault();
+    setSubmitting(true);
+    setFeedback("");
+    setHasError(false);
+
+    try {
+      const response = await fetch("/api/goodwill_messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ goodwill_message: form }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.errors?.join(", ") || "Your message could not be sent.");
+
+      setMessages((current) => [data.goodwill_message, ...current]);
+      setExpandedId(null);
+      setForm({ name: "", message: "" });
+      setFeedback("Your goodwill message has been added beautifully. Thank you.");
+    } catch (error) {
+      setHasError(true);
+      setFeedback(error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const visibleMessages = messages.slice(0, visibleCount);
+
+  return (
+    <section className="goodwill-board">
+      <motion.form className="goodwill-form" onSubmit={submitMessage} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+        <div className="goodwill-form__heading"><span aria-hidden="true"><PortalIcon name="message-heart" /></span><div><p>From your heart</p><h2>Leave a goodwill message</h2></div></div>
+        <label><span>Name / Organisation / Association / Ministry</span><input value={form.name} onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))} maxLength="80" placeholder="Enter your name or organisation" required /></label>
+        <label><span>Your message</span><textarea value={form.message} onChange={(event) => setForm((current) => ({ ...current, message: event.target.value }))} maxLength="2000" rows="5" placeholder="Share your prayer, wish, or beautiful words for the couple..." required /></label>
+        <div className="goodwill-form__footer"><small>{form.message.length}/2000</small><button type="submit" disabled={submitting}>{submitting ? "Sending..." : "Submit message"}</button></div>
+        {feedback ? <p className={`goodwill-feedback${hasError ? " goodwill-feedback--error" : ""}`} role="status">{feedback}</p> : null}
+        <a className="goodwill-form__scroll-cue" href="#goodwill-message-book"><span>Scroll down to explore the Goodwill Message Book</span><b aria-hidden="true">↓</b></a>
+      </motion.form>
+
+      <div className="goodwill-messages" id="goodwill-message-book">
+        <div className="goodwill-messages__heading"><p>Messages of love</p><h2>Goodwill message book</h2><span>{messages.length} message{messages.length === 1 ? "" : "s"}</span></div>
+        {loading ? <p className="feature-status">Loading goodwill messages...</p> : visibleMessages.length ? (
+          <div className="goodwill-list">
+            {visibleMessages.map((entry, index) => {
+              const isExpanded = expandedId === entry.id;
+              return (
+                <motion.article className={`goodwill-entry${isExpanded ? " is-open" : ""}`} key={entry.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: Math.min(index * 0.035, 0.3) }}>
+                  <button type="button" className="goodwill-entry__trigger" aria-expanded={isExpanded} onClick={() => setExpandedId(isExpanded ? null : entry.id)}><strong>{entry.name}</strong><span aria-hidden="true">{isExpanded ? "−" : "+"}</span></button>
+                  <AnimatePresence initial={false}>{isExpanded ? <motion.div className="goodwill-entry__body" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.28 }}><div><p>{entry.message}</p><time dateTime={entry.created_at}>{new Date(entry.created_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}</time></div></motion.div> : null}</AnimatePresence>
+                </motion.article>
+              );
+            })}
+          </div>
+        ) : <p className="goodwill-empty">Be the first to leave a beautiful message for Comfort and Shammah.</p>}
+        {visibleCount < messages.length ? <div className="goodwill-more"><button type="button" onClick={() => setVisibleCount((current) => current + GOODWILL_PAGE_SIZE)}>View more messages</button></div> : null}
+      </div>
+    </section>
+  );
+}
+
 function StandaloneFeature({ feature, siteSettings = {}, liveUpdates, liveLoading, liveError, supportDetail, supportLoading, supportError, planningContacts, contactsLoading, contactsError }) {
-  const usesGalleryPage = ["gallery", "prewedding", "videos", "live", "gifts", "contacts"].includes(feature.key);
+  const usesGalleryPage = ["gallery", "prewedding", "videos", "live", "goodwill", "gifts", "contacts"].includes(feature.key);
   const panelStyle = {
     padding: 18,
     borderRadius: 20,
@@ -762,6 +878,8 @@ function StandaloneFeature({ feature, siteSettings = {}, liveUpdates, liveLoadin
     content = <VideoPanel clips={siteSettings.video_gallery_items || []} />;
   } else if (feature.key === "live") {
     content = liveLoading ? <p className="feature-status">Loading live updates...</p> : liveError ? <p className="feature-status">{liveError}</p> : <LiveUpdatesFeed updates={liveUpdates} />;
+  } else if (feature.key === "goodwill") {
+    content = <GoodwillMessages />;
   } else if (feature.key === "gifts") {
     content = supportLoading ? <p className="feature-status">Loading support details...</p> : supportError ? <p className="feature-status">{supportError}</p> : <SupportDetails detail={supportDetail} />;
   } else if (feature.key === "contacts") {

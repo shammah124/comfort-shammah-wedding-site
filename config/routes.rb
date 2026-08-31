@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     resource :session, only: [:show, :create, :destroy]
+    resource :admin_account, only: [] do
+      patch :password, action: :update_password
+    end
+    resources :admin_users, only: [:index, :create, :update, :destroy]
     resources :rsvps, only: [:create, :index]
     resource :site_settings, only: [:show, :update]
     post "site_settings/media_upload", to: "site_settings#media_upload"
@@ -10,6 +14,7 @@ Rails.application.routes.draw do
     post "site_settings/programme_upload", to: "site_settings#programme_upload"
     delete "site_settings/programme_upload", to: "site_settings#programme_delete"
     resources :live_updates, only: [:index, :create, :destroy]
+    resources :goodwill_messages, only: [:index, :create, :destroy]
     resource :support_detail, only: [:show, :update]
     resources :planning_contacts, only: [:index, :create, :update, :destroy]
   end

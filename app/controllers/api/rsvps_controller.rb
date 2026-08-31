@@ -1,6 +1,7 @@
 module Api
   class RsvpsController < ApplicationController
     skip_before_action :verify_authenticity_token
+    before_action -> { require_admin_permission!("rsvps") }, only: :index
 
     def index
       rsvps = Rsvp.order(created_at: :desc)

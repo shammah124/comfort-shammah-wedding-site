@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_13_020000) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_31_120000) do
+  create_table "admin_users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "password_digest", null: false
+    t.string "role", default: "admin", null: false
+    t.text "permissions_json", default: "[]", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "last_sign_in_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "LOWER(name)", name: "index_admin_users_on_lower_name", unique: true
+  end
+
+  create_table "goodwill_messages", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_goodwill_messages_on_created_at"
+  end
+
   create_table "live_updates", force: :cascade do |t|
     t.string "context", default: "General", null: false
     t.text "message", null: false

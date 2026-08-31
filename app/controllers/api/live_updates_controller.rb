@@ -1,7 +1,7 @@
 module Api
   class LiveUpdatesController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :require_admin!, only: [:create, :destroy]
+    before_action -> { require_admin_permission!("live_updates") }, only: [:create, :destroy]
 
     def index
       updates = LiveUpdate.latest_first.limit(20)
@@ -33,8 +33,5 @@ module Api
       params.require(:live_update).permit(:context, :message, :author_name)
     end
 
-    def require_admin!
-      head :unauthorized unless session[:admin_signed_in] == true
-    end
   end
 end

@@ -34,8 +34,18 @@
     <%= yield %>
     <script>
       if ("serviceWorker" in navigator) {
+        const hadServiceWorkerController = Boolean(navigator.serviceWorker.controller);
+        let reloadingForServiceWorker = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (hadServiceWorkerController && !reloadingForServiceWorker) {
+            reloadingForServiceWorker = true;
+            window.location.reload();
+          }
+        });
         window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+          navigator.serviceWorker.register("/service-worker.js?v=3", { updateViaCache: "none" })
+            .then((registration) => registration.update())
+            .catch(() => {});
         });
       }
     </script>

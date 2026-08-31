@@ -22,6 +22,7 @@ Current status:
 - [x] Add church and reception programme downloads
 - [x] Add public and pre-wedding galleries with download support
 - [x] Add live wedding updates feed
+- [x] Add guest goodwill messages with admin moderation
 - [x] Add support and gifting details
 - [x] Add planning committee and developer contacts
 - [x] Add background music with mute control
@@ -90,3 +91,9 @@ Notes:
 - Prepared production deployment: strengthened ignored local files, added PostgreSQL production configuration, added Cloudflare R2-backed admin media uploads with local fallback, and documented the GitHub-to-hosting launch process.
 - Routed public programme, gallery image, and video downloads through attachment responses so downloads stay direct on mobile and desktop, including Cloudflare R2 media.
 - Prevented GitHub deployment uploads from including the nested standalone invitation copy, local bundled dependencies, editor metadata, or Mac metadata while retaining the safe `.env.example` deployment template.
+- Added a public Goodwill Messages feature with a styled name-and-message form, expandable sender-name message book, and 15-at-a-time browsing; the admin dashboard now mirrors the expandable message view and can permanently delete submissions.
+- Refined Goodwill Messages with professional individual-or-organisation naming, a visible message-book scroll cue, and a one-at-a-time accordion that stays closed by default; replaced native browser confirmations with styled admin dialogs for every destructive action and redesigned the global loading screen around the round wedding logo.
+- Rebuilt the loading experience as a clean ivory-and-burgundy wedding card with the round logo, event details, and a restrained champagne progress animation; replaced the stale cache-first service worker with versioned network-first app/API loading, immediate worker activation, and automatic refresh so future interface updates appear without old cached screens.
+- Removed the main portal's second-stage lazy-loading request so the public home and feature pages render immediately after the primary bundle loads, while invitation and admin code remain separately split.
+- Standardized transient task feedback: public and admin success confirmations now clear after two seconds, while actionable error messages remain visible for five seconds.
+- Replaced the single shared admin password with secure individual admin accounts: the primary admin can create, edit, pause, reset, or delete additional accounts and assign section-specific responsibilities, while every administrator can update their own password.

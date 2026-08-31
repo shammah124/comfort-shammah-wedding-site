@@ -1,7 +1,7 @@
 module Api
   class SupportDetailsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :require_admin!, only: [:update]
+    before_action -> { require_admin_permission!("support") }, only: [:update]
 
     def show
       render json: { support_detail: support_detail_payload(SupportDetail.current) }
@@ -31,10 +31,6 @@ module Api
         :secondary_sort_code,
         :note
       )
-    end
-
-    def require_admin!
-      head :unauthorized unless session[:admin_signed_in] == true
     end
 
     def support_detail_payload(detail)

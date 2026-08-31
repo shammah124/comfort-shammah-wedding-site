@@ -2048,6 +2048,47 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .planning-team__phone { display: inline-block; margin-top: 22px; color: #6b0020; font-size: 0.9rem; font-weight: 700; text-decoration: none; }
 .planning-team__phone:hover { color: #9b5d26; }
 .planning-team__empty { margin: 30px 0 0; padding: 26px; border: 1px dashed rgba(107, 0, 32, 0.24); border-radius: 18px; background: rgba(255, 253, 248, 0.65); color: #745f56; text-align: center; }
+.gallery-page--goodwill .gallery-page__hero { background: linear-gradient(135deg, #68172f 0%, #4a0b1e 68%, #351019 100%); }
+.goodwill-board { display: grid; gap: 34px; width: min(880px, 100%); margin: 32px auto 0; }
+.goodwill-form { position: relative; display: grid; gap: 18px; overflow: hidden; padding: clamp(22px, 4vw, 34px); border: 1px solid rgba(107, 0, 32, 0.15); border-radius: 24px; background: rgba(255, 253, 248, 0.9); box-shadow: 0 18px 45px rgba(82, 19, 38, 0.1); }
+.goodwill-form::before { position: absolute; top: 0; right: 0; left: 0; height: 4px; background: linear-gradient(90deg, #5f6b32, #d8b66f 50%, #6b0020); content: ""; }
+.goodwill-form__heading { display: flex; gap: 14px; align-items: center; }
+.goodwill-form__heading > span { display: grid; width: 46px; height: 46px; flex: 0 0 46px; place-items: center; border: 1px solid rgba(107, 0, 32, 0.16); border-radius: 50%; color: #6b0020; }
+.goodwill-form__heading p, .goodwill-messages__heading p { margin: 0; color: #9b5d26; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.goodwill-form__heading h2, .goodwill-messages__heading h2 { margin: 4px 0 0; color: #5b1027; font-family: var(--font-serif); font-size: clamp(1.55rem, 3vw, 2rem); font-weight: 400; line-height: 1.1; }
+.goodwill-form label { display: grid; gap: 7px; }
+.goodwill-form label > span { color: #745f56; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; }
+.goodwill-form input, .goodwill-form textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(107, 0, 32, 0.16); border-radius: 12px; outline: none; background: rgba(255, 255, 255, 0.75); color: #493b37; font: inherit; font-size: 0.95rem; transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease; }
+.goodwill-form textarea { min-height: 128px; resize: vertical; line-height: 1.65; }
+.goodwill-form input:focus, .goodwill-form textarea:focus { border-color: rgba(107, 0, 32, 0.48); background: #fff; box-shadow: 0 0 0 3px rgba(197, 154, 164, 0.16); }
+.goodwill-form__footer { display: flex; justify-content: space-between; gap: 14px; align-items: center; }
+.goodwill-form__footer small { color: #9a877b; font-size: 0.72rem; }
+.goodwill-form__footer button, .goodwill-more button { min-height: 42px; padding: 10px 17px; border: 1px solid #6b0020; border-radius: 11px; background: #6b0020; color: #fffaf3; font: inherit; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: transform 180ms ease, background 180ms ease; }
+.goodwill-form__footer button:hover, .goodwill-more button:hover { background: #4d0a1e; transform: translateY(-1px); }
+.goodwill-form__footer button:disabled { opacity: 0.62; cursor: wait; transform: none; }
+.goodwill-feedback { margin: -5px 0 0; padding: 11px 13px; border-radius: 11px; background: rgba(95, 107, 50, 0.1); color: #4f5d28; font-size: 0.82rem; line-height: 1.5; }
+.goodwill-feedback--error { background: rgba(169, 54, 63, 0.09); color: #a9363f; }
+.goodwill-form__scroll-cue { display: flex; justify-content: center; gap: 10px; align-items: center; margin-top: 2px; padding-top: 15px; border-top: 1px solid rgba(107, 0, 32, 0.08); color: #745f56; font-size: 0.76rem; font-weight: 700; text-align: center; text-decoration: none; }
+.goodwill-form__scroll-cue b { display: grid; width: 25px; height: 25px; flex: 0 0 25px; place-items: center; border: 1px solid rgba(107, 0, 32, 0.16); border-radius: 50%; color: #6b0020; animation: goodwillScrollCue 1.8s ease-in-out infinite; }
+.goodwill-form__scroll-cue:hover { color: #6b0020; }
+@keyframes goodwillScrollCue { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
+.goodwill-messages { display: grid; gap: 18px; }
+.goodwill-messages__heading { position: relative; padding-right: 110px; }
+.goodwill-messages__heading > span { position: absolute; right: 0; bottom: 3px; padding: 6px 10px; border-radius: 999px; background: rgba(232, 213, 176, 0.35); color: #6b0020; font-size: 0.72rem; font-weight: 700; }
+.goodwill-list, .admin-goodwill-list { display: grid; gap: 10px; }
+.goodwill-entry { overflow: hidden; border: 1px solid rgba(107, 0, 32, 0.13); border-radius: 16px; background: rgba(255, 253, 248, 0.82); box-shadow: 0 8px 22px rgba(82, 19, 38, 0.055); transition: border-color 180ms ease, box-shadow 180ms ease; }
+.goodwill-entry.is-open { border-color: rgba(107, 0, 32, 0.27); box-shadow: 0 13px 30px rgba(82, 19, 38, 0.09); }
+.goodwill-entry__trigger { display: flex; width: 100%; min-height: 54px; justify-content: space-between; gap: 16px; align-items: center; padding: 14px 17px; border: 0; background: transparent; color: #5b1027; font: inherit; text-align: left; cursor: pointer; }
+.goodwill-entry__trigger strong { font-family: var(--font-serif); font-size: 1.13rem; font-weight: 400; }
+.goodwill-entry__trigger > span { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border: 1px solid rgba(107, 0, 32, 0.17); border-radius: 50%; color: #9b5d26; font-size: 1.1rem; line-height: 1; }
+.goodwill-entry__body { overflow: hidden; }
+.goodwill-entry__body > div { position: relative; margin: 0 17px 17px; padding: 18px 19px 16px; border-top: 1px solid rgba(107, 0, 32, 0.09); border-radius: 0 0 12px 12px; background: linear-gradient(135deg, rgba(248, 239, 225, 0.72), rgba(255, 253, 248, 0.88)); }
+.goodwill-entry__body > div::before { position: absolute; top: 10px; left: 10px; color: rgba(107, 0, 32, 0.14); font-family: Georgia, serif; font-size: 2.2rem; line-height: 1; content: "“"; }
+.goodwill-entry__body p { position: relative; margin: 0; padding-left: 14px; color: #4b3c38; font-family: var(--font-serif); font-size: 1.02rem; font-style: italic; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+.goodwill-entry__body time { display: block; margin-top: 13px; padding-left: 14px; color: #8a7062; font-size: 0.7rem; font-style: normal; }
+.goodwill-empty { margin: 0; padding: 28px; border: 1px dashed rgba(107, 0, 32, 0.22); border-radius: 17px; background: rgba(255, 253, 248, 0.66); color: #745f56; text-align: center; }
+.goodwill-more { display: flex; justify-content: center; padding-top: 4px; }
+.goodwill-more button { border-color: rgba(107, 0, 32, 0.2); background: rgba(255, 253, 248, 0.82); color: #6b0020; }
 
 @media (max-width: 720px) {
   .gallery-page { padding: 25px 14px 46px; }
@@ -2071,6 +2112,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .planning-team__card { min-height: 250px; padding: 20px 14px; }
   .planning-team__monogram { width: 78px; height: 78px; margin-bottom: 14px; font-size: 1.7rem; }
   .planning-team__card h2, .planning-team__phone { overflow-wrap: anywhere; }
+  .goodwill-board { gap: 27px; margin-top: 26px; }
+  .goodwill-form { gap: 16px; padding: 22px 17px; border-radius: 19px; }
+  .goodwill-form input, .goodwill-form textarea { font-size: 16px; }
+  .goodwill-messages__heading { padding-right: 0; }
+  .goodwill-messages__heading > span { position: static; display: inline-block; margin-top: 10px; }
+  .goodwill-entry__trigger { min-height: 56px; padding: 13px 14px; }
+  .goodwill-entry__body > div { margin: 0 13px 13px; padding: 17px 14px 15px; }
+  .goodwill-entry__body p, .goodwill-entry__body time { padding-left: 11px; }
 }
 
 @media (max-width: 400px) {
@@ -2094,6 +2143,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .admin-hero__brand img { width: 58px; height: 58px; border: 2px solid rgba(255, 249, 239, .72); border-radius: 50%; object-fit: cover; }
 .admin-hero__brand p { margin: 0; color: var(--color-gold-light); font-family: var(--font-script); font-size: .82rem; font-style: italic; letter-spacing: .13em; }
 .admin-hero__brand h1 { margin: 2px 0 0; color: #fffaf3; font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 400; line-height: 1.1; }
+.admin-signed-in { color: rgba(255, 250, 243, .78); font-size: .76rem; }
+.admin-signed-in b { color: #fffaf3; }
 .admin-nav { position: sticky; z-index: 4; top: 0; display: flex; gap: 7px; overflow-x: auto; padding: 10px clamp(18px, 4vw, 56px); border-bottom: 1px solid rgba(107, 0, 32, .10); background: rgba(255, 253, 248, .94); backdrop-filter: blur(16px); }
 .admin-nav a { flex: 0 0 auto; padding: 8px 11px; color: #745f56; font-size: .76rem; font-weight: 700; text-decoration: none; }
 .admin-nav a:hover { color: #6b0020; }
@@ -2115,6 +2166,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .admin-button--danger:hover { background: #fdeced; }
 .admin-form { display: grid; gap: 16px; }
 .admin-form__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.admin-form__grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .admin-form__grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .admin-field { display: grid; gap: 7px; min-width: 0; }
 .admin-field > span { color: #8a7062; font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
@@ -2123,6 +2175,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .admin-note { margin: 0; padding: 11px 13px; border-radius: 10px; background: rgba(232, 213, 176, .27); color: #745f56; font-size: .82rem; }
 .admin-feedback { color: #6b0020; font-size: .82rem; }
 .admin-feedback--error { color: #b42334; }
+.admin-inline-actions, .admin-user-card__actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.admin-access-create { display: grid; gap: 17px; padding: 18px; border: 1px solid rgba(107, 0, 32, .13); border-radius: 18px; background: rgba(255, 255, 255, .48); }
+.admin-permissions { margin: 0; padding: 14px; border: 1px solid rgba(107, 0, 32, .13); border-radius: 14px; }
+.admin-permissions legend { padding: 0 7px; color: #6b0020; font-family: var(--font-serif); font-size: 1.05rem; }
+.admin-permissions > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.admin-permissions label, .admin-active-toggle { display: flex; gap: 9px; align-items: center; color: #745f56; font-size: .82rem; cursor: pointer; }
+.admin-permissions input, .admin-active-toggle input { width: 17px; height: 17px; accent-color: #6b0020; }
+.admin-user-list { display: grid; gap: 13px; margin-top: 20px; }
+.admin-user-card { display: grid; gap: 15px; padding: 18px; border: 1px solid rgba(107, 0, 32, .13); border-radius: 17px; background: rgba(255, 255, 255, .53); }
+.admin-user-card.is-inactive { opacity: .72; background: rgba(238, 231, 222, .58); }
+.admin-user-card__heading { display: flex; justify-content: space-between; gap: 14px; align-items: center; flex-wrap: wrap; }
+.admin-user-card__heading > div { display: grid; gap: 3px; }
+.admin-user-card__heading strong { color: #5b1027; font-family: var(--font-serif); font-size: 1.18rem; font-weight: 400; }
+.admin-user-card__heading span { color: #8a7062; font-size: .76rem; }
+.admin-role-badge { padding: 6px 10px; border-radius: 999px; background: rgba(197, 154, 98, .18); color: #7b4b20 !important; font-weight: 700; }
+.admin-password-reset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding-top: 4px; }
 .programme-manager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .programme-manager article { display: grid; gap: 12px; padding: 15px; border: 1px solid rgba(107, 0, 32, .12); border-radius: 15px; background: rgba(255, 255, 255, .5); }
 .programme-manager article > div:first-child { display: grid; gap: 3px; }
@@ -2156,6 +2224,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .admin-live-list time, .admin-live-list small { color: #8a7062; font-size: .76rem; }
 .admin-live-list p { margin: 8px 0; color: #4b292f; line-height: 1.6; }
 .admin-live-list .admin-button { position: absolute; right: 12px; bottom: 12px; min-height: 31px; padding: 5px 8px; font-size: .7rem; }
+.admin-goodwill-list { margin: 18px 0 14px; }
+.admin-goodwill-list .goodwill-entry { background: rgba(255, 255, 255, .52); box-shadow: none; }
+.admin-goodwill-entry__footer { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 14px; padding-left: 14px; }
+.admin-goodwill-entry__footer time { margin: 0; padding: 0; }
+.admin-goodwill-entry__footer .admin-button { min-height: 34px; padding: 6px 9px; font-size: .72rem; }
+.admin-goodwill-list + .admin-button + .admin-feedback, .admin-goodwill-list + .admin-feedback { display: block; margin-top: 12px; }
+.admin-dialog { position: fixed; z-index: 200; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(40, 7, 18, .72); backdrop-filter: blur(8px); animation: adminDialogFade .2s ease both; }
+.admin-dialog__card { display: grid; width: min(430px, 100%); justify-items: center; padding: 32px 28px 27px; border: 1px solid rgba(216, 182, 111, .42); border-radius: 24px; background: linear-gradient(145deg, #fffdf8, #f8efe3); box-shadow: 0 28px 80px rgba(30, 3, 11, .42); color: #4b292f; text-align: center; animation: adminDialogRise .28s ease both; }
+.admin-dialog__icon { display: grid; width: 48px; height: 48px; place-items: center; margin-bottom: 15px; border: 1px solid rgba(169, 54, 63, .28); border-radius: 50%; background: rgba(169, 54, 63, .08); color: #9c2537; font-family: var(--font-serif); font-size: 1.45rem; }
+.admin-dialog__card > p { margin: 0; color: #9b5d26; font-size: .67rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.admin-dialog__card h2 { margin: 7px 0 0; color: #5b1027; font-family: var(--font-serif); font-size: 1.85rem; font-weight: 400; line-height: 1.12; }
+.admin-dialog__rule { width: 54px; height: 1px; margin: 17px 0; background: linear-gradient(90deg, transparent, #c59a62, transparent); }
+.admin-dialog__card > span { max-width: 340px; color: #745f56; font-size: .9rem; line-height: 1.65; }
+.admin-dialog__actions { display: grid; width: 100%; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+.admin-dialog__actions .admin-button { width: 100%; }
+@keyframes adminDialogFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes adminDialogRise { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .admin-account-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
 .admin-account-grid fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 15px; border: 1px solid rgba(107, 0, 32, .13); border-radius: 15px; }
 .admin-account-grid legend { padding: 0 6px; color: #6b0020; font-family: var(--font-serif); font-size: 1.1rem; }
@@ -2179,7 +2264,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .admin-rsvp-status--yes { background: rgba(79, 128, 79, .12); color: #386c39 !important; }
 .admin-rsvp-status--no { background: rgba(169, 54, 63, .10); color: #a9363f !important; }
 
-@media (max-width: 780px) { .admin-hero { align-items: flex-start; } .admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .admin-form__grid, .admin-form__grid--four, .programme-manager, .admin-account-grid { grid-template-columns: 1fr; } .admin-account-grid fieldset { grid-template-columns: 1fr; } .admin-contact-list__actions { width: 100%; margin-left: 0; } }
+@media (max-width: 780px) { .admin-hero { align-items: flex-start; } .admin-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .admin-form__grid, .admin-form__grid--three, .admin-form__grid--four, .programme-manager, .admin-account-grid, .admin-password-reset { grid-template-columns: 1fr; } .admin-account-grid fieldset, .admin-permissions > div { grid-template-columns: 1fr; } .admin-contact-list__actions { width: 100%; margin-left: 0; } }
 @media (max-width: 520px) { .admin-login { padding: 30px 22px; } .admin-hero { padding: 20px 16px; } .admin-hero__brand img { width: 48px; height: 48px; } .admin-hero__actions { width: 100%; } .admin-hero__actions .admin-button { flex: 1; } .admin-nav { padding-inline: 12px; scrollbar-width: none; } .admin-nav::-webkit-scrollbar { display: none; } .admin-content { width: min(100% - 24px, 1220px); margin-top: 18px; } .admin-panel { padding: 18px 15px; border-radius: 19px; } .admin-panel__heading { align-items: flex-start; } .admin-panel__heading h2 { font-size: 1.55rem; } .admin-field input, .admin-field textarea, .admin-field select, .media-toolbar select, .admin-rsvp-controls input { font-size: 16px; } .programme-manager article > div:last-child { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } .programme-manager article > div:last-child .admin-button { width: 100%; } .media-tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 3px; } .media-tabs button { flex: 0 0 auto; } .media-toolbar__actions { align-items: stretch; width: 100%; } .media-toolbar__actions label { flex: 1; justify-content: space-between; } .media-toolbar__actions > .admin-button { flex: 1; } .admin-media-grid--compact, .admin-media-grid--comfortable { grid-template-columns: repeat(2, minmax(0, 1fr)); } .admin-media-grid--large { grid-template-columns: 1fr; } .admin-live-list article { padding-bottom: 52px; } .admin-live-list .admin-button { right: 11px; bottom: 10px; } .admin-rsvp-controls { align-items: stretch; } .admin-rsvp-controls input { width: 100%; } .admin-rsvp-list article { display: grid; grid-template-columns: 1fr auto; align-items: start; } .admin-rsvp-list article small { grid-column: 1 / -1; } }
 .app-loading {
   position: relative;
@@ -2189,8 +2274,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   place-items: center;
   padding: 24px;
   overflow: hidden;
-  background: #1a0410;
-  color: #fffdf8;
+  background: #f8f2e9;
+  color: #5b1027;
   font-family: var(--font-serif);
   text-align: center;
 }
@@ -2199,18 +2284,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 30% 20%, rgba(107,0,32,.25) 0%, transparent 55%),
-    radial-gradient(ellipse at 70% 80%, rgba(216,182,111,.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 50%, rgba(95,107,50,.08) 0%, transparent 70%),
-    #1a0410;
+    linear-gradient(rgba(255,255,255,.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.24) 1px, transparent 1px),
+    radial-gradient(ellipse at 18% 18%, rgba(216,182,111,.26) 0%, transparent 48%),
+    radial-gradient(ellipse at 82% 78%, rgba(197,154,164,.2) 0%, transparent 48%),
+    linear-gradient(145deg, #fbf8f2, #f2e8dc);
+  background-size: 38px 38px, 38px 38px, auto, auto, auto;
   z-index: 0;
 }
 
 .app-loading__glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: .5;
+  filter: blur(70px);
+  opacity: .34;
   z-index: 0;
   pointer-events: none;
 }
@@ -2219,7 +2306,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   height: min(380px, 60vw);
   top: -10%;
   right: -8%;
-  background: rgba(216,182,111,.35);
+  background: rgba(216,182,111,.48);
   animation: loadingGlowGold 7s ease-in-out infinite alternate;
 }
 .app-loading__glow--pink {
@@ -2227,7 +2314,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   height: min(340px, 55vw);
   bottom: -8%;
   left: -10%;
-  background: rgba(197,154,164,.28);
+  background: rgba(107,0,32,.24);
   animation: loadingGlowPink 8s ease-in-out infinite alternate;
 }
 
@@ -2271,9 +2358,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .app-loading__frame {
   position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(216,182,111,.14);
-  border-radius: 8px;
+  inset: 14px;
+  border: 1px solid rgba(107,0,32,.1);
+  border-radius: 24px;
   z-index: 0;
   pointer-events: none;
 }
@@ -2282,24 +2369,39 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   position: relative;
   z-index: 2;
   display: flex;
+  width: min(430px, 100%);
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   gap: 0;
-  max-width: 380px;
+  padding: clamp(30px, 7vw, 48px) clamp(22px, 6vw, 42px) 34px;
+  border: 1px solid rgba(216,182,111,.3);
+  border-radius: 30px;
+  background: linear-gradient(145deg, #68172f 0%, #4b0b20 64%, #310712 100%);
+  box-shadow: 0 28px 80px rgba(82,19,38,.24), inset 0 0 0 8px rgba(255,255,255,.025);
+  animation: loadingCardReveal .75s ease both;
 }
 
+.app-loading__content::before { position: absolute; top: 0; right: 38px; left: 38px; height: 3px; border-radius: 0 0 999px 999px; background: linear-gradient(90deg, transparent, #d8b66f 30%, #f0dfbd 50%, #d8b66f 70%, transparent); content: ""; }
+
+@keyframes loadingCardReveal { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
 .app-loading__crest {
-  width: 78px;
-  height: 78px;
-  margin-bottom: 18px;
+  width: 96px;
+  height: 96px;
+  margin: 20px 0 18px;
+  padding: 4px;
+  border: 1px solid rgba(255,249,239,.58);
+  border-radius: 50%;
+  background: rgba(255,253,248,.12);
 }
 .app-loading__crest img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 50%;
   animation: loadingCrestFloat 4s ease-in-out infinite;
-  filter: drop-shadow(0 8px 24px rgba(107,0,32,.35));
+  filter: drop-shadow(0 8px 20px rgba(24,2,8,.28));
 }
 
 @keyframes loadingCrestFloat {
@@ -2308,18 +2410,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .app-loading__eyebrow {
-  font-size: 1.55rem;
+  color: #e8d5b0;
+  font-family: var(--font-script);
+  font-size: .72rem;
+  font-style: italic;
   font-weight: 600;
-  color: #d8b66f;
-  letter-spacing: .08em;
+  letter-spacing: .16em;
   margin: 0;
+  text-transform: uppercase;
 }
 
+.app-loading__title { margin: 0; color: #fffaf3; font-family: var(--font-serif); font-size: clamp(2rem, 7vw, 2.7rem); font-weight: 400; line-height: 1.05; }
+.app-loading__title span { color: #d8b66f; font-family: var(--font-script); font-style: italic; }
+.app-loading__subtitle { margin: 10px 0 0; color: rgba(255,250,243,.7); font-family: var(--font-sans); font-size: .67rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.app-loading__event { display: flex; gap: 10px; align-items: center; margin-top: 16px; color: rgba(232,213,176,.78); font-family: var(--font-sans); font-size: .64rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.app-loading__event i { width: 4px; height: 4px; border-radius: 50%; background: #d8b66f; }
+
 .app-loading__divider {
-  width: 62px;
+  width: 88px;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(216,182,111,.5), transparent);
-  margin: 16px 0 20px;
+  margin: 22px 0 18px;
 }
 .app-loading__divider span {
   display: block;
@@ -2344,12 +2455,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #d8b66f;
+  background: #e8d5b0;
   animation: loadingDotBounce 1.3s ease-in-out infinite;
 }
 .app-loading__spinner span:nth-child(1) { animation-delay: 0s; }
 .app-loading__spinner span:nth-child(2) { animation-delay: .2s; }
 .app-loading__spinner span:nth-child(3) { animation-delay: .4s; }
+
+.app-loading__progress { position: relative; width: min(180px, 68%); height: 3px; overflow: hidden; margin-bottom: 15px; border-radius: 999px; background: rgba(255,250,243,.12); }
+.app-loading__progress span { position: absolute; inset-block: 0; left: -48%; width: 48%; border-radius: inherit; background: linear-gradient(90deg, transparent, #e8d5b0 58%, #fffaf3); animation: loadingProgress 1.8s ease-in-out infinite; }
+@keyframes loadingProgress { 0% { transform: translateX(0); } 100% { transform: translateX(310%); } }
 
 @keyframes loadingDotBounce {
   0%, 80%, 100% { transform: scale(.65); opacity: .4; }
@@ -2359,7 +2474,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .app-loading__message {
   font-family: var(--font-sans);
   font-size: .82rem;
-  color: rgba(255,253,248,.55);
+  color: rgba(255,253,248,.66);
   letter-spacing: .06em;
   margin: 0;
   animation: loadingMessageFade 2.5s ease-in-out infinite;
@@ -2368,4 +2483,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @keyframes loadingMessageFade {
   0%, 100% { opacity: .45; }
   50% { opacity: .85; }
+}
+
+@media (max-width: 520px) {
+  .admin-dialog { padding: 14px; }
+  .admin-dialog__card { padding: 27px 20px 22px; border-radius: 21px; }
+  .admin-dialog__card h2 { font-size: 1.6rem; }
+  .app-loading { padding: 18px; }
+  .app-loading__frame { inset: 8px; border-radius: 19px; }
+  .app-loading__content { border-radius: 24px; }
+  .app-loading__crest { width: 84px; height: 84px; }
+  .app-loading__event { gap: 7px; font-size: .58rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goodwill-form__scroll-cue b, .admin-dialog, .admin-dialog__card, .app-loading__content, .app-loading__crest img, .app-loading__glow, .app-loading__spinner span, .app-loading__progress span, .app-loading__message { animation: none !important; }
 }
